@@ -10,6 +10,7 @@ window.addEventListener('keydown', (e) => {
   const key = document.querySelector(`div[data-key='${e.keyCode}']`);
   if(!key) return;
   key.classList.add('playing');
+  setTimeout( () => key.classList.remove('playing'), 70);
   playSound(e.keyCode);
 });
 
