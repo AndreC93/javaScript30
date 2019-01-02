@@ -1,7 +1,9 @@
 # JavaScript30
 
 *30 Projects in 30 Days*
+![](https://javascript30.com/images/JS3-social-share.png)
 Grab the course at [https://JavaScript30.com](https://JavaScript30.com)
+
 
 
 ## Projects Done
