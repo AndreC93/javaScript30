@@ -1,26 +1,21 @@
 class Clock {
   constructor() {
-    this.hands = document.querySelectorAll('.hand');
+    this.secHand = document.querySelector('.second-hand');
+    this.minHand = document.querySelector('.min-hand');
+    this.hourHand = document.querySelector('.hour-hand');
     this.rotateHands = this.rotateHands.bind(this);
   }
   
   getTime() {
     const time = new Date();
-    return [time.getSeconds(), time.getMinutes()];
+    return [time.getSeconds(), time.getMinutes(), time.getHours()];
   }
   
   rotateHands() {
-    const [secs, mins] = this.getTime();
-    this.hands.forEach( hand => {
-      const classes = Array.from(hand.classList);
-      if (classes.includes('second-hand')) {
-        console.log('sec')
-        hand.style.transform = `rotate(${secs * 6}deg)`;
-      } else if (classes.includes('min-hand')) {
-        console.log('min')
-        hand.style.transform = `rotate(${mins * 6}deg)`;
-      }
-    });
+    const [secs, mins, hours] = this.getTime();
+    this.secHand.style.transform = `rotate(${secs * 6 + 90}deg)`;
+    this.minHand.style.transform = `rotate(${mins * 6 + 90}deg)`;
+    this.hourHand.style.transform = `rotate(${hours * 30 + 90}deg)`;
   }
 
   run() {
