@@ -3,6 +3,7 @@ class Clock {
     this.secHand = document.querySelector('.second-hand');
     this.minHand = document.querySelector('.min-hand');
     this.hourHand = document.querySelector('.hour-hand');
+    this.hands = [this.secHand, this.minHand, this.hourHand];
     this.rotateHands = this.rotateHands.bind(this);
   }
   
@@ -13,6 +14,17 @@ class Clock {
   
   rotateHands() {
     const [secs, mins, hours] = this.getTime();
+    
+    if(secs === 59) {
+      this.hands.forEach(hand => {
+        hand.style.transition = "all 0s";
+      });
+
+      setTimeout(() => this.hands.forEach(hand => {
+        hand.style.transition = "all 0.05s";
+      }), 2001);
+
+    }
     this.secHand.style.transform = `rotate(${secs * 6 + 90}deg)`;
     this.minHand.style.transform = `rotate(${mins * 6 + 90}deg)`;
     this.hourHand.style.transform = `rotate(${hours * 30 + 90}deg)`;
