@@ -27,42 +27,51 @@
       { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
     ];
 
-    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
-
+    
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
     const bornIn1500s = inventors.filter(({year}) => year < 1600 && year > 1499);
     console.table(bornIn1500s);
-
+    
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
     const names = inventors.map(({first, last}) => first + ' ' + last);
     console.log(names);
-
+    
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
     const sortedByAge = inventors.sort((a, b) => a.year - b.year);
     console.table(sortedByAge);
-
+    
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
     const totalYears = inventors.reduce((accum, {year, passed}) => accum + (passed - year), 0);
     console.log(totalYears);
-
+    
     // 5. Sort the inventors by years lived
-    const sortedByYearsLived = inventors.sort((a, b) => (a.passed - a.year) - (b.passed - b.year));
+    const sortedByYearsLived = inventors.sort((a, b) => (b.passed - b.year) - (a.passed - a.year));
     console.table(sortedByYearsLived);
-
+    
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
-
+    // const category = document.querySelector('.mw-category');
+    // const links = Array.from(category.querySelectorAll('a'));
+    // const namesOfBoulevards = links.map(link => link.textContent);
+    // const namesWithDe = namesOfBoulevards.filter(name => name.includes('de'));
+    
     // 7. sort Exercise
     // Sort the people alphabetically by last name
-
+    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
+    const sortedPeopleByLastName = people.sort((a,b) => a.split(', ')[0] - b.split(', ')[0]);
+    console.log(sortedPeopleByLastName);
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const instancesOfData = data.reduce((accum, d) => {
+      accum[d] ? accum[d]++ : accum[d] = 1;
+      return accum;
+    }, {});
+    console.log(instancesOfData);
 
   </script>
 </body>
