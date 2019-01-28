@@ -24,7 +24,26 @@ fetch(endpoint)
   .then(blob => blob.json())
   .then(place => cities.push(place));
 
-  
+function handleKeyUp() {
+  console.log(this.value);
+}
+
+function debounced(delay, fn) {
+  let timerId;
+  return function (...args) {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+    timerId = setTimeout(() => {
+      fn(...args);
+      timerId = null;
+    }, delay);
+  }
+}
+
+const search = document.querySelector('.search');
+search.addEventListener('keyup', handleKeyUp)
+
 </script>
 </body>
 </html>
