@@ -17,15 +17,19 @@
   
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
-
 const cities = [];
 
 fetch(endpoint)
   .then(blob => blob.json())
-  .then(place => cities.push(place));
+  .then(places => cities.push(...places));
 
 function handleKeyUp() {
-  console.log(this.value);
+  if(this.value) {
+    const regex = new RegExp(this.value, 'i');
+    displaySuggestions(cities.filter(place => place.city.match(regex) || place.state.match(regex)), this.value);
+  } else {
+    suggestions.innerHTML = '<li>Filter For A City</li><li>Or A State</li>'
+  }
 }
 
 function debounced(delay, fn) {
@@ -35,14 +39,45 @@ function debounced(delay, fn) {
       clearTimeout(timerId);
     }
     timerId = setTimeout(() => {
-      fn(...args);
+      fn.apply(this, ...args);
       timerId = null;
     }, delay);
   }
 }
 
+function displaySuggestions(filteredCities, searchWord) {
+  if(filteredCities.length) {
+    const regex = new RegExp(searchWord, 'i');
+    suggestions.innerHTML = filteredCities
+      .map(place => {
+        const {city, state, population} = place;
+        const cityName = city.replace(regex, `<span class='hl'>${searchWord}</span>`);
+        const stateName = state.replace(regex, `<span class='hl'>${searchWord}</span>`);
+        return(
+          `<li>
+            <span>${cityName}, ${stateName}</span>
+            <span>${formatNumbersWithCommas(population)}</span>
+          </li>`
+        );
+      }).join('');
+  } else {
+    suggestions.innerHTML = '<li>City Or State Not Found</li>'
+  }
+}
+
+function formatNumbersWithCommas(num) {
+  if(num < 1000) {
+    return num + '';
+  } else {
+    return formatNumbersWithCommas(Math.floor(num / 1000)) + ',' + `${num % 1000}`;
+  }
+}
+
+const debouncedSearch = debounced(300, handleKeyUp);
+
 const search = document.querySelector('.search');
-search.addEventListener('keyup', handleKeyUp)
+const suggestions = document.querySelector('.suggestions')
+search.addEventListener('keyup', debouncedSearch)
 
 </script>
 </body>
