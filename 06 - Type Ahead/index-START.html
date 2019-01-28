@@ -73,8 +73,7 @@ function formatNumbersWithCommas(num) {
   }
 }
 
-const debouncedSearch = debounced(300, handleKeyUp);
-
+const debouncedSearch = debounced(280, handleKeyUp);
 const search = document.querySelector('.search');
 const suggestions = document.querySelector('.suggestions')
 search.addEventListener('keyup', debouncedSearch)
