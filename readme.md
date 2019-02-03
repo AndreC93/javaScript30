@@ -9,12 +9,12 @@ Grab the course at [https://JavaScript30.com](https://JavaScript30.com)
 ## Projects Done
 
 - [x] Drum Kit
-- [ ] Clock
-- [ ] CSS Variables
-- [ ] Array Cardio Day 1
-- [ ] Flex Panel Gallery
-- [ ] Type Ahead
-- [ ] Array Cardio Day 2
+- [x] Clock
+- [x] CSS Variables
+- [x] Array Cardio Day 1
+- [x] Flex Panel Gallery
+- [x] Type Ahead
+- [x] Array Cardio Day 2
 - [ ] HTML5 Canvas
 - [ ] Dev Tools Domination
 - [ ] Hold Shift and Check Checkboxes
