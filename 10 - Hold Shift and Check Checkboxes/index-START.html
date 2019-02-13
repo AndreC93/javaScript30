@@ -96,6 +96,15 @@
   </div>
 
 <script>
+  let focusedInput = null;
+  document.querySelectorAll('.item').forEach( item => item.addEventListener('click', (e) => {
+    focusedInput = item;
+    item.childNodes.forEach( child => {
+      if(e.target.localName === 'input') return;
+      child.localName === 'input' ? child.checked = !child.checked : null;
+    });
+  }));
+  // document.addEventListener('click', () => console.log(focusedInput));
 </script>
 </body>
 </html>
