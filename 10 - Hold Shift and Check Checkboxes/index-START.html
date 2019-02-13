@@ -97,12 +97,28 @@
 
 <script>
   let focusedInput = null;
-  document.querySelectorAll('.item').forEach( item => item.addEventListener('click', (e) => {
+  const items = Array.from(document.querySelectorAll('.item'));
+  const inputs = Array.from(document.querySelectorAll('input'));
+  
+  items.forEach(item => item.addEventListener('click', (e) => {
+    if(e.shiftKey) {
+      const idxPrev = items.indexOf(focusedInput);
+      const idxCurr = items.indexOf(item);
+      const min = Math.min(idxPrev, idxCurr);
+      const max = Math.max(idxPrev, idxCurr);
+      const selectedInputs = inputs.slice(min, max+1);
+      if(selectedInputs.every(input => input.checked === true)){
+        selectedInputs.forEach(input => input.checked = false);
+      } else {
+        selectedInputs.forEach(input => input.checked = true);
+      }
+    } else {
+        item.childNodes.forEach(child => {
+        if(e.target.localName === 'input') return;
+        child.localName === 'input' ? child.checked = !child.checked : null;
+      });
+    }
     focusedInput = item;
-    item.childNodes.forEach( child => {
-      if(e.target.localName === 'input') return;
-      child.localName === 'input' ? child.checked = !child.checked : null;
-    });
   }));
   // document.addEventListener('click', () => console.log(focusedInput));
 </script>
