@@ -48,6 +48,11 @@
       font-size: 20px;
       font-weight: 200;
       border-left: 1px solid #D1E2FF;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
     }
   </style>
    <!--
@@ -102,6 +107,7 @@
   
   items.forEach(item => item.addEventListener('click', (e) => {
     if(e.shiftKey) {
+      e.preventDefault();
       const idxPrev = items.indexOf(focusedInput);
       const idxCurr = items.indexOf(item);
       const min = Math.min(idxPrev, idxCurr);
