@@ -13,6 +13,18 @@ class VideoPlayer {
   initializeListeners() {
     this.video.addEventListener('click', () => this.togglePlay());
     ['play', 'pause'].forEach(event => this.video.addEventListener(event, () => this.togglePlayButton()));
+    initializeSliderListeners();
+  }
+  
+  initializeSliderListeners() {
+    const slidersClicked = {
+      volume: false,
+      playbackRate: false,
+    };
+    this.sliders.forEach(slider => {
+      slider.addEventListener('mousedown', () => slidersClicked[slider.name] = !slidersClicked[slider.name]);
+      slider.addEventListener('mouseup', () => slidersClicked[slider.name] = !slidersClicked[slider.name]);
+    })
   }
 
   togglePlay() {
@@ -24,6 +36,7 @@ class VideoPlayer {
     this.toggle.textContent = icon;
   }
 
+  
 }
 
 const videoPlayer = new VideoPlayer();
