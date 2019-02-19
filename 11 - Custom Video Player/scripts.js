@@ -7,8 +7,22 @@ class VideoPlayer {
     this.toggle = player.querySelector('.toggle');
     this.sliders = player.querySelectorAll('.player__slider');
     this.skipButtons = player.querySelectorAll('[data-skip]');
+    this.initializeListeners();
   }
 
+  initializeListeners() {
+    this.video.addEventListener('click', () => this.togglePlay());
+    ['play', 'pause'].forEach(event => this.video.addEventListener(event, () => this.togglePlayButton()));
+  }
+
+  togglePlay() {
+    this.video.paused ? this.video.play() : this.video.pause();
+  }
+  
+  togglePlayButton() {
+    const icon = this.video.paused ? '►' : '❚ ❚';
+    this.toggle.textContent = icon;
+  }
 
 }
 
