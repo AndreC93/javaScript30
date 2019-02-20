@@ -14,6 +14,7 @@ class VideoPlayer {
     this.initializePlayListeners();
     this.initializeSliderListeners();
     this.initializeSkipButtonListeners();
+    this.initializeProgressListener();
   }
   
   initializePlayListeners() {
@@ -55,7 +56,25 @@ class VideoPlayer {
     const icon = this.video.paused ? '►' : '❚ ❚';
     this.toggle.textContent = icon;
   }
-
+  
+  initializeProgressListener() {
+    let mousedown = false;
+    const scrubVideo = offsetX => {
+      const percent = offsetX / this.progress.offsetWidth;
+      this.video.currentTime = percent * this.video.duration;
+      this.progressBar.style.flexBasis = percent * 100;
+    }
+    this.progress.addEventListener('mousedown', () => mousedown = true);
+    this.progress.addEventListener('mousemove', (e) => mousedown && scrubVideo(e.offsetX))
+    this.progress.addEventListener('mouseup', (e) => {
+      mousedown = false;
+      scrubVideo(e.offsetX);
+    });
+    this.video.addEventListener('timeupdate', () => {
+      const percent = this.video.currentTime / this.video.duration;
+      this.progressBar.style.flexBasis = `${percent * 100}%`;
+    });
+  }
   
 }
 
