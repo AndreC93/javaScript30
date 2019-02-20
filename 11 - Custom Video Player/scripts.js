@@ -11,9 +11,13 @@ class VideoPlayer {
   }
 
   initializeListeners() {
-    this.video.addEventListener('click', () => this.togglePlay());
+    this.initializePlayListeners();
+    this.initializeSliderListeners();
+  }
+  
+  initializePlayListeners() {
+    [this.video, this.toggle].forEach(el => el.addEventListener('click', () => this.togglePlay()));
     ['play', 'pause'].forEach(event => this.video.addEventListener(event, () => this.togglePlayButton()));
-    initializeSliderListeners();
   }
   
   initializeSliderListeners() {
@@ -21,10 +25,20 @@ class VideoPlayer {
       volume: false,
       playbackRate: false,
     };
+
+    const toggleSlider = (slider) => slidersClicked[slider.name] = !slidersClicked[slider.name];
     this.sliders.forEach(slider => {
-      slider.addEventListener('mousedown', () => slidersClicked[slider.name] = !slidersClicked[slider.name]);
-      slider.addEventListener('mouseup', () => slidersClicked[slider.name] = !slidersClicked[slider.name]);
+      slider.addEventListener('mousedown', () => toggleSlider(slider));
+      slider.addEventListener('mousemove', () => slidersClicked[slider.name] && this.handleSlider(slider));
+      slider.addEventListener('mouseup', () => {
+        this.handleSlider(slider);
+        toggleSlider(slider);
+      });
     })
+  }
+
+  handleSlider(slider) {
+    this.video[slider.name] = slider.value;
   }
 
   togglePlay() {
