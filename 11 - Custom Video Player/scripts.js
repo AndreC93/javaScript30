@@ -13,6 +13,7 @@ class VideoPlayer {
   initializeListeners() {
     this.initializePlayListeners();
     this.initializeSliderListeners();
+    this.initializeSkipButtonListeners();
   }
   
   initializePlayListeners() {
@@ -33,8 +34,13 @@ class VideoPlayer {
       slider.addEventListener('mouseup', () => {
         this.handleSlider(slider);
         toggleSlider(slider);
+        slider.blur();
       });
     })
+  }
+
+  initializeSkipButtonListeners() {
+    this.skipButtons.forEach(button => button.addEventListener('click', () => this.video.currentTime += parseFloat(button.dataset.skip)));
   }
 
   handleSlider(slider) {
